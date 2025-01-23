@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,12 @@ SECRET_KEY = 'django-insecure-=l#**#g_&7i4uu9t=3c*iqyf&6(cpu#c3vsd7qkz0y*t_#7=xs
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
+}
 
 
 # Application definition
@@ -125,3 +132,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+    
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# allow login with email
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailBackend', 
+    'django.contrib.auth.backends.ModelBackend',  
+]
