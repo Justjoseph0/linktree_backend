@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import LinkAPIView
+from .views import LinkListCreateAPIView
 
 urlpatterns = [
-    path('links/', LinkAPIView.as_view(), name='links'),
+    path('links/', LinkListCreateAPIView.as_view(), name='links'),
 ]
